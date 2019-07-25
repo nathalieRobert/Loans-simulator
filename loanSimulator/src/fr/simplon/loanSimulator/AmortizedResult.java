@@ -88,24 +88,4 @@ public class AmortizedResult {
     public void setTotalCost(double totalCost) {
 	this.totalCost = totalCost;
     }
-
-    // Calculation methods
-    /**
-     * @return payment per year
-     */
-    public double annuity() {
-	return totalCostCalculation() / li.getLoanTerm();
-    }
-
-    public double dueAmount() {
-	return annuity() + li.getInterestRate();
-    }
-
-    /**
-     * @return loan total costs (loan amount + interest + insurance)
-     */
-    public double totalCostCalculation() {
-	return (li.getInterestRate() * li.getLoanTerm())
-		+ (li.getInsuranceRate() * li.getLoanTerm());
-    }
 }

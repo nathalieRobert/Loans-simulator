@@ -10,7 +10,7 @@ public class LoanInfo {
 
     private LocalDateTime startDate;
 
-    private double loanTerm;
+    private int loanTerm;
 
     private double interestRate;
 
@@ -44,7 +44,7 @@ public class LoanInfo {
 	return loanTerm;
     }
 
-    public void setLoanTerm(double loanTerm) {
+    public void setLoanTerm(int loanTerm) {
 	this.loanTerm = loanTerm;
     }
 
@@ -67,22 +67,50 @@ public class LoanInfo {
     public void loanTypeChoice(String loantype) {
 	switch (loantype) {
 	case "mortgage":
-	    System.out.println("Mortgage");
+	    System.out.println("you chose : Mortgage");
 	    break;
 	case "auto-loan":
-	    System.out.println("Auto loan.");
+	    System.out.println("you chose : Auto loan.");
 	    break;
 	case "construction":
-	    System.out.println("Construction work");
+	    System.out.println("you chose : Construction work loan");
 	    break;
 	}
     }
 
-    public double interestRate() {
+    public double interestCost() {
 	return loanAmount * (interestRate / 100);
     }
 
-    public double insuranceRate() {
+    public double insuranceCost() {
 	return loanAmount * (insuranceRate / 100);
+    }
+
+    // Calculation methods
+    /**
+     * @return payment per year
+     */
+    public double annuity() {
+	return totalCostCalculation() / getLoanTerm();
+    }
+
+    public double dueAmount() {
+	return annuity() + getInterestRate();
+    }
+
+    /**
+     * @return loan total costs (loan amount + interest + insurance)
+     */
+    public double totalCostCalculation() {
+	return loanAmount + (getInterestRate() * getLoanTerm())
+		+ (getInsuranceRate() * getLoanTerm());
+    }
+
+    @Override
+    public String toString() {
+	return "LoanInfo [loanAmount=" + loanAmount + ", loantype=" + loantype
+		+ ", startDate=" + startDate + ", loanTerm=" + loanTerm
+		+ ", interestRate=" + interestRate + ", insuranceRate="
+		+ insuranceRate + "]";
     }
 }
