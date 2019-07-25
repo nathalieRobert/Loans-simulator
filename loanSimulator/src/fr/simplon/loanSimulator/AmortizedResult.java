@@ -21,19 +21,18 @@ public class AmortizedResult {
 
     LoanInfo li;
 
-    protected AmortizedResult(int year, double amortization, double interest,
-	    double dueAmount, double annuity, double insurance,
-	    double totalCost) {
-	super();
-	this.year = year;
-	this.amortization = amortization;
-	this.interest = interest;
-	this.dueAmount = dueAmount;
-	this.annuity = annuity;
-	this.insurance = insurance;
-	this.totalCost = totalCost;
-    }
-
+    // protected AmortizedResult(int year, double amortization, double interest,
+    // double dueAmount, double annuity, double insurance,
+    // double totalCost) {
+    // super();
+    // this.year = year;
+    // this.amortization = amortization;
+    // this.interest = interest;
+    // this.dueAmount = dueAmount;
+    // this.annuity = annuity;
+    // this.insurance = insurance;
+    // this.totalCost = totalCost;
+    // }
     public int getYear() {
 	return year;
     }
@@ -90,18 +89,21 @@ public class AmortizedResult {
 	this.totalCost = totalCost;
     }
 
-    public double costPerYear() {
+    // Calculation methods
+    /**
+     * @return payment per year
+     */
+    public double annuity() {
 	return totalCostCalculation() / li.getLoanTerm();
     }
 
-    public double paybackPerYear() {
-	return li.getLoanAmount() - dueAmount;
+    public double dueAmount() {
+	return annuity() + li.getInterestRate();
     }
 
-    public double annuity() {
-	return paybackPerYear() + li.getInterestRate();
-    }
-
+    /**
+     * @return loan total costs (loan amount + interest + insurance)
+     */
     public double totalCostCalculation() {
 	return (li.getInterestRate() * li.getLoanTerm())
 		+ (li.getInsuranceRate() * li.getLoanTerm());
